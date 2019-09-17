@@ -17,16 +17,29 @@ namespace UnityConfigurationXML
     {
         public void Write(string message)
         {
-            Console.WriteLine($"此物件的 HashCode {this.GetHashCode()}");
+            Console.WriteLine($"ConsoleMessage 物件的 HashCode {this.GetHashCode()}");
+        }
+    }
+
+    public class FileMessage : IMessage
+    {
+        public void Write(string message)
+        {
+            Console.WriteLine($"FileMessage 物件的 HashCode {this.GetHashCode()}");
         }
     }
     class Program
     {
         static void Main(string[] args)
         {
+            // 這裡將會建立 DI 容器並且讀取 XML 內容
+            // 建立型別對應註冊的工作
             IUnityContainer container = new UnityContainer().LoadConfiguration();
 
+            // 進行抽象型別的具體實作物件的解析
             IMessage message = container.Resolve<IMessage>();
+
+            // 執行取得物件的方法
             message.Write("Vulcan");
 
             Console.WriteLine("Press any key for continuing...");

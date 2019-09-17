@@ -25,8 +25,10 @@ namespace LifetimeManager
     {
         static void Main(string[] args)
         {
+            // 這裡將會建立 DI 容器
             IUnityContainer container = new UnityContainer();
 
+            // 進行抽象型別與具體實作類別的註冊
             container.RegisterType<IMessage, ConsoleMessage>(
                 "TransientLifetimeManager", new TransientLifetimeManager());
             container.RegisterType<IMessage, ConsoleMessage>(
@@ -34,10 +36,13 @@ namespace LifetimeManager
 
             Console.WriteLine("TransientLifetimeManager解析就產生新物件、容器不會保留該物件參考");
 
+            // 進行抽象型別的具體實作物件的解析
             IMessage messageTransientLifetimeManager1 = 
                 container.Resolve<IMessage>("TransientLifetimeManager");
             IMessage messageTransientLifetimeManager2 = 
                 container.Resolve<IMessage>("TransientLifetimeManager");
+
+            // 執行取得物件的方法
             messageTransientLifetimeManager1.Write("Hi TransientLifetimeManager 1");
             messageTransientLifetimeManager2.Write("Hi TransientLifetimeManager 2");
 

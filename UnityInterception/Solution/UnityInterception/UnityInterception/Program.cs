@@ -59,7 +59,7 @@ namespace UnityInterception
         public IEnumerable<Type> GetRequiredInterfaces()
         {
             //return new Type[] { }; // 若為空型別集合物件，則表示任何物件皆會被攔截
-            return Type.EmptyTypes;
+            return new Type[] { typeof(IQueryable) };
         }
 
         public IMethodReturn Invoke(IMethodInvocation input, GetNextInterceptionBehaviorDelegate getNext)
@@ -79,18 +79,24 @@ namespace UnityInterception
     {
         static void Main(string[] args)
         {
+            // 這裡將會建立 DI 容器
             IUnityContainer container = new UnityContainer();
 
             var fooInterception = new Interception();
             container.AddExtension(fooInterception);
 
+            // 進行抽象型別與具體實作類別的註冊
+            // 在進行註冊抽象與具體實作類別的時候，我們需要進行攔截行為的設定，告知要啟用 Unity 攔截功能
             container.RegisterType<IMessage, ConsoleMessage>(
                 new Interceptor<InterfaceInterceptor>(),
                 new InterceptionBehavior<AppLog>(),
                 new InterceptionBehavior<VirtualLog>());
 
+            // 進行抽象型別的具體實作物件的解析
             IMessage message = container.Resolve<IMessage>();
             Console.WriteLine($"{Environment.NewLine}呼叫 IMessage.Write");
+
+            // 執行取得物件的方法
             message.Write("Hi Vulcan");
             Console.WriteLine($"{Environment.NewLine}呼叫 IMessage.Empty");
             message.Empty();

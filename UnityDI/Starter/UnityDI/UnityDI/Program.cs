@@ -13,8 +13,11 @@ namespace UnityDI
 
     public class Employee : IEmployee
     {
+        // 這個成員，需要透過 DI Container 的屬性注入方法，取得具體實作物件
         public ICompany PropertyInjectionCompany { get; set; }
+        // 這個成員，需要透過 DI Container 的建構式注入方法，取得具體實作物件
         public ICompany ConstructorInjectionCompany { get; set; }
+        // 這個成員，需要透過 DI Container 的方法注入方法，取得具體實作物件
         public ICompany MethodInjectionCompany { get; set; }
 
         public void DisplaySalary()

@@ -57,17 +57,23 @@ namespace FirstStructureMap
             //    c.For<IMessage>().Use<ConsoleMessage>();
             //});
 
+            // 這裡將會建立 DI 容器
             IContainer container = new Container();
 
+            // 進行抽象型別與具體實作類別的註冊
             container.Configure(config =>
             {
                 config.For<IMessage>().Use<ConsoleMessage>();
-                config.For<IMessage>().Use<FileMessage>();
-                config.For<ILog>().Use<Log>();
+
+                // 請嘗試確認深層注入的行為，是否可以正常運作
+                //config.For<IMessage>().Use<FileMessage>();
+                //config.For<ILog>().Use<Log>();
             });
 
+            // 進行抽象型別的具體實作物件的解析
             IMessage message = container.GetInstance<IMessage>();
 
+            // 執行取得物件的方法
             message.Write("Hi Vulcan");
 
             Console.WriteLine("Press any key for continuing...");

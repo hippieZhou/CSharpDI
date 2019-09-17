@@ -60,17 +60,22 @@ namespace DeepResolve
     {
         static void Main(string[] args)
         {
+            // 這裡將會建立 DI 容器
             IUnityContainer container = new UnityContainer();
 
+            // 進行抽象型別與具體實作類別的註冊
             container.RegisterType<IDependency1, Dependency1>();
             container.RegisterType<IDependency2, Dependency2>();
             container.RegisterType<IDependency3, Dependency3>();
             container.RegisterType<IDependency4, Dependency4>();
             container.RegisterType<IInfrastructure, Infrastructure>();
 
+            // 進行抽象型別的具體實作物件的解析
             var foo = container.Resolve<ViewModel>();
 
+            // 執行取得物件的方法
             Console.WriteLine($"ViewModel : {foo.GetHashCode()}");
+
             Console.WriteLine("Press any key for continuing...");
             Console.ReadKey();
         }

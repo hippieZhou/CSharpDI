@@ -44,6 +44,7 @@ namespace DeepResolve
         }
     }
 
+    // ViewModel 並沒有實作任何界面
     class ViewModel
     {
         private readonly IInfrastructure _Infrastructure;

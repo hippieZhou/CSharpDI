@@ -15,7 +15,15 @@ namespace UnityConfigurationXML
     {
         public void Write(string message)
         {
-            Console.WriteLine($"此物件的 HashCode {this.GetHashCode()}");
+            Console.WriteLine($"ConsoleMessage 物件的 HashCode {this.GetHashCode()}");
+        }
+    }
+
+    public class FileMessage : IMessage
+    {
+        public void Write(string message)
+        {
+            Console.WriteLine($"FileMessage 物件的 HashCode {this.GetHashCode()}");
         }
     }
     class Program

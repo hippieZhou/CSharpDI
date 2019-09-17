@@ -48,9 +48,9 @@ namespace FirstNetCore
         static void Main(string[] args)
         {
             ServiceCollection serviceProvider = new ServiceCollection();
-            serviceProvider.AddScoped<IMessage, ConsoleMessage>();
-            //serviceProvider.AddScoped<IMessage, FileMessage>();
-            serviceProvider.AddScoped<ILog, Log>();
+            serviceProvider.AddTransient<IMessage, ConsoleMessage>();
+            //serviceProvider.AddTransient<IMessage, FileMessage>();
+            //serviceProvider.AddTransient<ILog, Log>();
             IServiceProvider container = serviceProvider.BuildServiceProvider();
 
             IMessage message = container.GetService<IMessage>();

@@ -40,21 +40,27 @@ namespace MultiConstructor
     {
         static void Main(string[] args)
         {
+            // 這裡將會建立 DI 容器
             IUnityContainer container = new UnityContainer();
 
+            // 進行抽象型別與具體實作類別的註冊
             container.RegisterType<IDependency1, Dependency1>();
             container.RegisterType<IDependency2, Dependency2>();
             container.RegisterType<IDependency3, Dependency3>();
             container.RegisterType<IDependency4, Dependency4>();
 
             #region 這裡使用預設選擇的建構式
+            // 進行抽象型別的具體實作物件的解析
             container.RegisterType<IInfrastructure, Infrastructure>();
             container.Resolve<IInfrastructure>();
             #endregion
 
             #region 這裡使用了 InjectionConstructor 物件，指明要使用甚麼樣建構式簽章函數
+            // 進行抽象型別與具體實作類別的註冊
+            // 這裡針對 介面這註冊了第二次，不過，指定要使用哪個建構函式
             container.RegisterType<IInfrastructure, Infrastructure>(new InjectionConstructor
                 (new ResolvedParameter<IDependency1>(), new ResolvedParameter<IDependency2>()));
+            // 進行抽象型別的具體實作物件的解析
             container.Resolve<IInfrastructure>();
             #endregion
 

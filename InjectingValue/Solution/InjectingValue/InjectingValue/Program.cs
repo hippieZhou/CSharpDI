@@ -39,13 +39,18 @@ namespace InjectingValue
     {
         static void Main(string[] args)
         {
+            // 這裡將會建立 DI 容器
             IUnityContainer container = new UnityContainer();
 
+            // 進行抽象型別與具體實作類別的註冊
             container.RegisterType<IMessage, ConsoleMessage>(
                 new InjectionConstructor("Vulcan", 50),
                 new InjectionProperty("Cost", 999.168));
 
+            // 進行抽象型別的具體實作物件的解析
             IMessage message = container.Resolve<IMessage>();
+
+            // 執行取得物件的方法
             message.Write("Hi Vulcan");
 
             Console.WriteLine("Press any key for continuing...");
